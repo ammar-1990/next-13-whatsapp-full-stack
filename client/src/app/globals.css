@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.input{
+    @apply outline-none py-3 w-full text-xs px-1 rounded-md ring-2 ring-transparent duration-300 focus:ring-green-400 bg-[#2d3d47] text-white
+}
+
+.button{
+    @apply w-full py-2 rounded-md text-white bg-green-500 hover:bg-green-600 duration-300
+}
+
+body{@apply relative}
