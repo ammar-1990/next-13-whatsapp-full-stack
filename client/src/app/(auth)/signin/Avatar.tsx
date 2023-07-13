@@ -10,7 +10,7 @@ type Props = {
     sm?:boolean,
     md?:boolean,
     image:string
-    setImage:Dispatch<SetStateAction<string>>,
+    setImage?:Dispatch<SetStateAction<string>>,
   
     
 }
@@ -43,7 +43,7 @@ const data = [
   reader.readAsDataURL(file);
 
   reader.onload = () => {
-    setImage(reader.result as string);
+    setImage!(reader.result as string);
    
   };
      setShowMenue(false)   },
@@ -51,7 +51,7 @@ const data = [
     },
     {
         name:'remove photo',
-        callback:()=>{setImage('/images/avatars/default.png');setShowMenue(false)}
+        callback:()=>{setImage!('/images/avatars/default.png');setShowMenue(false)}
     },
 ]
 
@@ -90,8 +90,8 @@ const handleClick = useCallback((e:React.MouseEvent<HTMLDivElement>)=>{
 
     </div>
     {showMenue && <Menu avRef={avRef} coordinates={coordinates} data={data} setShowMenue={setShowMenue}/>}
-    {showLibrary && <ImagesLibrary setImage={setImage} setShowLibrary={setShowLibrary} />}
-    {takePhoto && <TakePhoto setTakePhoto={setTakePhoto} setImage={setImage} />}
+    {showLibrary && <ImagesLibrary setImage={setImage!} setShowLibrary={setShowLibrary} />}
+    {takePhoto && <TakePhoto setTakePhoto={setTakePhoto} setImage={setImage!} />}
     </div>
   
   )

@@ -9,4 +9,4 @@ route.post('/login',loginController)
 route.post('/getuser',getUser)
 
 
-export default route
+export default route 

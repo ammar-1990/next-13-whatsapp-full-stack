@@ -3,11 +3,11 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import axios from "axios";
 import { GET_USER } from "@/libs/allRoutes";
 
-type User = {
+export type User = {
     id:number,
     name:string,
     email:string,
- 
+    profileImg?:string,
     createdAt:Date,
     updatedAt:Date
 } | null

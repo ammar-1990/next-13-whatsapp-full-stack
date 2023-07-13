@@ -2,11 +2,16 @@ import Image from 'next/image'
 import React from 'react'
 import TheForm from './TheForm'
 
+import { getSession } from '@/actions/getCurrentUser'
+import { redirect } from 'next/navigation'
+
 
 type Props = {}
 
 const page = async(props: Props) => {
+const currentUser = await getSession()
 
+if(currentUser) redirect('/')
 
   return (
     <div className='h-screen bg-primary flex items-center justify-center'>

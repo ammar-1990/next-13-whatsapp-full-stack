@@ -5,6 +5,7 @@ import Avatar from "./Avatar"
 import toast from 'react-hot-toast'
 import {signIn} from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { REGISTER } from '@/libs/allRoutes'
 
 type Props = {
     register:boolean,
@@ -30,7 +31,7 @@ const RegisterForm = ({register,toggle}: Props) => {
     setState(prev=>({...prev,isLoading:true}))
  
     try {
-      await axios.post('http://localhost:8800/api/auth/register',{name:state.name,email:state.email,password:state.password,profileImg:image})
+      await axios.post(REGISTER,{name:state.name,email:state.email,password:state.password,profileImg:image})
    console.log(state)
       toast.success('Account is created successfully')
       signIn('credentials',{email:state.email,password:state.password,redirect:false}).then((callback) => {
