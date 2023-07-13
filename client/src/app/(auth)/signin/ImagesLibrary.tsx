@@ -21,8 +21,8 @@ const ImagesLibrary = ({ setImage, setShowLibrary }: Props) => {
     "/images/avatars/9.png",
   ];
   return (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <div className="relative grid grid-cols-3 p-12 bg-gray-900 gap-12">
+    <div className="fixed inset-0 flex items-center justify-center ">
+      <div className="relative grid grid-cols-3 p-12 bg-gray-900 gap-12 rounded-lg">
         <span
           onClick={() => setShowLibrary(false)}
           className="flex items-center justify-center p-3 absolute top-0 right-0 cursor-pointer"
@@ -31,12 +31,13 @@ const ImagesLibrary = ({ setImage, setShowLibrary }: Props) => {
         </span>
         {images.map((el) => (
           <div
-            className="w-12 h-12 rounded-full cursor-pointer relative  hover:border-green-500 border-2 border-transparent duration-200"
+            className="w-12 h-12 rounded-full cursor-pointer relative group  "
             onClick={() => {
               setImage(el);
               setShowLibrary(false);
             }}
           >
+            <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent -top-2 -left-2 group-hover:border-green-500 duration-300"></div>
             <Image key={el} fill src={el} alt="avatar" />
           </div>
         ))}

@@ -7,6 +7,7 @@ export async function registerController (req,res,next){
 
 const body = req.body
 const {email,name,password,profileImg} = body
+console.log(body)
 console.log(body.password)
 if(!email || !name || !password) return next(createError('Enter all information please',400))
 

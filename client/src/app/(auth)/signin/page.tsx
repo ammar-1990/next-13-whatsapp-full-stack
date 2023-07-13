@@ -14,7 +14,7 @@ const page = async(props: Props) => {
       <div>
       <h1 className='text-center text-5xl mb-4 text-white'>Whatsapp</h1>
       <div className='flex flex-col sm:flex-row items-center gap-5 w-full justify-center '>
-    <Image src='/images/whatsapp.gif' width={300} height={300} alt='logo' className='sm:w-auto w-28' />
+    <Image src='/images/whatsapp.gif' width={300} height={300} alt='logo' className='sm:w-64 w-28' />
     <div className='min-w-[300px] '>
 <TheForm />
 

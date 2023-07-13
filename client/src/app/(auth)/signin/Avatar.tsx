@@ -4,6 +4,7 @@ import React, { Dispatch, SetStateAction, useCallback, useState, useRef } from '
 import {BsCameraFill} from 'react-icons/bs'
 import Menu from './Menu'
 import ImagesLibrary from './ImagesLibrary'
+import TakePhoto from './TakePhoto'
 
 type Props = {
     sm?:boolean,
@@ -19,12 +20,13 @@ const Avatar = ({sm,md,image,setImage }: Props) => {
     const [coordinates, setCoordintates] = useState({x:0,y:0})
     const [showMenue, setShowMenue] = useState(false)
     const [showLibrary, setShowLibrary ] = useState(false)
+    const [takePhoto, setTakePhoto] = useState(false)
     const avRef=useRef<HTMLDivElement>(null)
 
 const data = [
     {
         name:'take photo',
-        callback:()=>{}
+        callback:()=>{setTakePhoto(true);setShowMenue(false)}
     },
     {
         name:'choose from library',
@@ -79,16 +81,17 @@ const handleClick = useCallback((e:React.MouseEvent<HTMLDivElement>)=>{
         
     onClick={handleClick}
     className='w-32 h-32 rounded-full relative overflow-hidden cursor-pointer flex items-center justify-center group'
-    >     <Image  id='menu'fill src={image} alt='avatar' className='group-hover:opacity-20 object-contain sm:opacity-100 opacity-20'/>
+    >     <Image  id='menu'fill src={image} alt='avatar' className='group-hover:opacity-20 object-cover sm:opacity-100 opacity-20'/>
     <div className='absolute flex sm:hidden group-hover:flex flex-col items-center mt-8 '>
 <BsCameraFill color='white' size={20} />
-<p className='text-white'>Add photo</p>
+<p className='text-white w-min capitalize text-xs text-center'>change profile images</p>
 
     </div>
 
     </div>
     {showMenue && <Menu avRef={avRef} coordinates={coordinates} data={data} setShowMenue={setShowMenue}/>}
     {showLibrary && <ImagesLibrary setImage={setImage} setShowLibrary={setShowLibrary} />}
+    {takePhoto && <TakePhoto setTakePhoto={setTakePhoto} setImage={setImage} />}
     </div>
   
   )
