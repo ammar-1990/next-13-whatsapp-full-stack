@@ -12,7 +12,7 @@ type Props = {
 
 const SideBar = ({currentUser}: Props) => {
   return (
-    <div className="col-span-1 bg-primary ">
+    <div className="col-span-1 bg-primary flex flex-col">
 <SideHeader currentUser={currentUser} />
 <SearchComponent />
       

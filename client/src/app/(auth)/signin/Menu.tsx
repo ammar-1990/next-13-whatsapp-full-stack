@@ -32,7 +32,7 @@ const Menu = ({ coordinates, data, setShowMenue,avRef }: Props) => {
     <div
 
       style={{ position: "fixed", top: coordinates.y, left: coordinates.x }}
-      className={` block bg-[#2d3d47] shadow-md text-white text-xs rounded-lg overflow-hidden`}
+      className={` block bg-secondary shadow-md text-white text-xs rounded-lg overflow-hidden`}
     >
       <ul>
         {data.map((el) => {
