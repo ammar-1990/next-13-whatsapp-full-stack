@@ -91,14 +91,14 @@ res.status(200).json(user)
 
 
 export async function getAllUsers (req,res,next) { 
-    const prisma = prismadb()
+    const prisma = prismadb() 
 const id = req.query.id
 
 if(id){
 try {
-    const user = await prisma.user.findUnique({where:{id:+id}})
-    if(!user) return res.status(200).json({})
-    console.log(user)
+    const user = await prisma.user.findUnique({where:{id:+id}})  
+    if(!user) return res.status(200).json(null)
+   
     return res.status(200).json(user)
 } catch (error) {
     next(error)

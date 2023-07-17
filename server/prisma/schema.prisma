@@ -20,7 +20,23 @@ model User {
   profileImg String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  sentMessages Messages[] @relation("sentMessages")
+  recievedMessages Messages[] @relation("recievedMessages")
+
   
 
 
+}
+
+model Messages {
+  id Int @id @default(autoincrement())
+  sender User @relation("sentMessages",fields: [senderId],references: [id])
+  senderId Int
+  reciever User @relation("recievedMessages",fields: [recieverId],references: [id])
+  recieverId Int
+  type String @default("text")
+  message String
+  messageStatus String @default("sent")
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }
