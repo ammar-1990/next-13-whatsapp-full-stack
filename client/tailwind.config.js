@@ -16,6 +16,9 @@ module.exports = {
         primary: '#202c33',
         secondary:'#192227'
       },
+      backgroundImage:{
+        'chat-background':"url('/images/chat-bg.png')"
+      }
     },
   },
   plugins: [],

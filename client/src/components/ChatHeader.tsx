@@ -5,17 +5,18 @@ import { IoIosCall } from "react-icons/io";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import Avatar from '@/app/(auth)/signin/Avatar'
 import React from 'react'
+import { User } from "@/actions/getCurrentUser";
 
-type Props = {}
+type Props = {user:User | null}
 
-const ChatHeader = (props: Props) => {
+const ChatHeader = ({user}: Props) => {
   return (
     <div className='p-3 flex items-center justify-between '>
 
         <div className='flex items-center gap-5'>
-            <Avatar  sm />
+            <Avatar image={user?.profileImg as string}  sm />
             <div className='flex flex-col text-xs text-white'>
-<span className='font-semibold'>DEMO</span>
+<span className='font-semibold'>{user?.name}</span>
 <span>online/offline</span>
             </div>
         </div>

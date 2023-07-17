@@ -53,7 +53,7 @@ res.status(201).json(rest)
 export async function loginController(req,res,next){
 
     const {email,password} = req.body
-console.log(email,password)
+
     if(!email || !password) return next(createError('enter all information',400))
 const prisma = prismadb()
 
@@ -77,14 +77,70 @@ try {
 
 
 
-export async function getUser  (req,res,next){
-    console.log('work')
+export async function getUser  (req,res,next){ 
+
 const {email} = req.body
 const prisma = prismadb()
-console.log(email) 
+
  
 const user = await prisma.user.findUnique({where:{email}}) 
 if(!user) return next(createError('no such user'),400)
 res.status(200).json(user)
+
+}
+
+
+export async function getAllUsers (req,res,next) { 
+    const prisma = prismadb()
+const id = req.query.id
+
+if(id){
+try {
+    const user = await prisma.user.findUnique({where:{id:+id}})
+    if(!user) return res.status(200).json({})
+    console.log(user)
+    return res.status(200).json(user)
+} catch (error) {
+    next(error)
+    console.log(error)
+}
+}
+
+
+ 
+
+  
+
+try {       
+    const allUsers = await prisma.user.findMany({
+        orderBy:{
+            name:'asc'
+        },
+        select:{
+            id:true,
+            name:true, 
+            email:true,
+            profileImg:true
+        }   
+    })    
+
+const usersByLetters = {}
+
+allUsers.forEach((user)=>{
+const letter = user.name.charAt(0).toUpperCase()
+if(!usersByLetters[letter]){
+    usersByLetters[letter]=[]
+    usersByLetters[letter].push(user)
+}
+
+})
+
+res.status(200).json(usersByLetters)
+
+} catch (error) {
+    console.log(error)
+
+    next(error)     
+}
 
 }

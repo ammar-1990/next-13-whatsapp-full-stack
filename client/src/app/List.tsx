@@ -1,10 +1,18 @@
 'use client'
 
-type Props = {}
+import { AllUsers } from "@/actions/getAllUsers"
 
-const List = (props: Props) => {
+
+type Props = {
+  allUsers:AllUsers
+}
+
+const List =  ({allUsers}: Props) => {
+
+
   return (
-    <div className="mt-2 ">List</div>
+
+    <div className="mt-2 myScroll flex-1  ">List</div>
   )
 }
 

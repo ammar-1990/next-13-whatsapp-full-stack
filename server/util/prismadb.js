@@ -7,6 +7,7 @@ export const prismadb= ()=>{
     if(!prisma)
     {
         prisma = new PrismaClient()
+        
     }
 
     return prisma
