@@ -1,14 +1,22 @@
 'use client'
 import { Message } from '@/actions/getAllMessages'
-import React, { useEffect, useRef } from 'react'
+import { useSocket } from '@/providers/MyProvider'
+import React, { useEffect, useRef, useState } from 'react'
 
 type Props = {allMessages:Message[]}
 
 const Scroller = (allMessages: Props) => {
 
+  const {state,dispatch}=useSocket()
+
+
+
     useEffect(()=>{
         myRef.current?.scrollIntoView()
+   
     },[allMessages])
+
+ 
 
     const myRef = useRef<HTMLDivElement>(null)
   return (

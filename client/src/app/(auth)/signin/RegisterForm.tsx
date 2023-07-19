@@ -32,7 +32,7 @@ const RegisterForm = ({register,toggle}: Props) => {
  
     try {
       await axios.post(REGISTER,{name:state.name,email:state.email,password:state.password,profileImg:image})
-   console.log(state)
+
       toast.success('Account is created successfully')
       signIn('credentials',{email:state.email,password:state.password,redirect:false}).then((callback) => {
         if(!callback?.error){

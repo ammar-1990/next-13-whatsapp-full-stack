@@ -5,10 +5,13 @@ import Avatar from "./(auth)/signin/Avatar"
 import SideHeader from "./SideHeader"
 import SearchComponent from "./SearchComponent"
 import List from "./List"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ContactsHeader from "./ContactsHeader"
 import ContactsBody from "./ContactsBody"
 import { AllUsers } from "@/actions/getAllUsers"
+import { io } from "socket.io-client"
+import { useSocket } from "@/providers/MyProvider"
+import { useRouter } from "next/navigation"
 
 
 type Props = {
@@ -17,6 +20,21 @@ type Props = {
 }
 
 const SideBar = ({currentUser,allUsers}: Props) => {
+const {dispatch,state}= useSocket()
+const [once, setOnce] = useState(false)
+  useEffect(()=>{
+
+    const newSocket = io("http://localhost:8800")
+    newSocket.emit('add-user',(currentUser?.id))
+    dispatch({type:'NEW_SOCKET',payload:newSocket})
+
+
+  },[currentUser,dispatch])
+const router = useRouter()
+
+
+
+
 
   const [messages, setMessages] = useState(false)
   return (

@@ -11,7 +11,7 @@ type Props = {
 }
 
 const ContactsBody = ({allUsers,currentUser}: Props) => {
-  console.log(allUsers)
+ 
   return (
     <div className="flex flex-1 flex-col overflow-y-scroll myScroll bg-secondary py-2">
       <div className="px-2">
@@ -20,7 +20,7 @@ const ContactsBody = ({allUsers,currentUser}: Props) => {
   
         <div className=" flex-1 flex flex-col  ">
           {allUsers === null ? <p className="text-gray-400">No users</p>:
-       Object.entries(allUsers).map(([letter,users],i)=>(users.length===1 && users[0].id === currentUser?.id) ? null : <ContactItem  key={i} letter={letter} users={users}/>
+       Object.entries(allUsers).map(([letter,users],i)=>(users.length===1 && users[0].id === currentUser?.id) ? null : <ContactItem currentUser={currentUser} key={i} letter={letter} users={users}/>
 
        )}
 

@@ -12,10 +12,10 @@ type Props = {search?:string,with?:string}
 const Content = async({searchParams}: {searchParams:Props}) => {
 
   const withUser = searchParams.with
-  console.log(withUser)
+
 
   const user = await getAllUsers(withUser as string)
-  console.log('the user',user)
+
 
 
 

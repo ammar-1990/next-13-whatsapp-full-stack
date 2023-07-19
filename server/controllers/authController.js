@@ -126,12 +126,12 @@ try {
 
 const usersByLetters = {}
 
-allUsers.forEach((user)=>{
-const letter = user.name.charAt(0).toUpperCase()
+allUsers.forEach((user)=>{     
+const letter = user.name.charAt(0).toUpperCase()   
 if(!usersByLetters[letter]){
-    usersByLetters[letter]=[]
+    usersByLetters[letter]=[]}
     usersByLetters[letter].push(user)
-}
+
 
 })
 

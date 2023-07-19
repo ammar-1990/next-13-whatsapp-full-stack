@@ -8,6 +8,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { ADD_MESSAGE } from '@/libs/allRoutes'
 import { useRouter } from 'next/navigation'
+import { useSocket } from '@/providers/MyProvider'
 
 type Props = {
   user:User | null
@@ -15,6 +16,7 @@ type Props = {
 }
 
 const ChatComponent = ({user,currentUser}: Props) => {
+  const {state} = useSocket()
 
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -24,10 +26,13 @@ const handleSubmit = useCallback(async(e:React.FormEvent<HTMLFormElement>)=>{
 if(!message.trim() || isLoading) return 
 setIsLoading(true)
 try {
-  await axios.post(ADD_MESSAGE,{from:currentUser?.id,to:user?.id,message})
+await axios.post(ADD_MESSAGE,{from:currentUser?.id,to:user?.id,message})
 setMessage('')
+state.newSocket?.emit('send-msg',{to:user?.id,from:currentUser?.id,message})
   toast.success('Message is sent')
+
   router.refresh()
+  
 } catch (error) {
   console.log(error)
 toast.error('Something went wrong')

@@ -6,10 +6,11 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 type Props = {
     letter:string
-    users:User[]
+    users:User[],
+    currentUser:User
 }
 
-const ContactItem = ({letter,users}: Props) => {
+const ContactItem = ({letter,users,currentUser}: Props) => {
     const router = useRouter()
     const searchParams = useSearchParams()
     const handleClick = useCallback((id:string)=>{
@@ -22,7 +23,7 @@ const ContactItem = ({letter,users}: Props) => {
     <div className=''>
         <p className='text-[#5b88a4] p-4'>{letter}</p>
         <div>
-            {users.map(user=><div onClick={()=>handleClick(user?.id.toString() as string)} className='pt-3 px-2 flex items-center gap-3 cursor-pointer hover:bg-primary' key={user?.id}>
+            {users.map(user=>user?.id!==currentUser?.id&&<div onClick={()=>handleClick(user?.id.toString() as string)} className='pt-3 px-2 flex items-center gap-3 cursor-pointer hover:bg-primary' key={user?.id}>
                 <Avatar sm image={user?.profileImg as string} />
                 <div className='border-b pb-3 border-gray-800 w-full'>
                     <p className='capitalize text-white text-sm'>{user?.name}</p>
