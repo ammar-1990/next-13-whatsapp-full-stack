@@ -18,3 +18,7 @@
 .myScroll::-webkit-scrollbar-thumb {
     @apply bg-[#223742]
 }
+
+.myScroll{
+    scroll-behavior: smooth;
+}

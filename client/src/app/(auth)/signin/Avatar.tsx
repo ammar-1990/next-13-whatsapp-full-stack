@@ -5,6 +5,7 @@ import {BsCameraFill} from 'react-icons/bs'
 import Menu from './Menu'
 import ImagesLibrary from './ImagesLibrary'
 import TakePhoto from './TakePhoto'
+import {signOut} from'next-auth/react'
 
 type Props = {
     sm?:boolean,
@@ -64,7 +65,7 @@ const handleClick = useCallback((e:React.MouseEvent<HTMLDivElement>)=>{
 },[setCoordintates,setShowMenue])
 
     if(sm)return(
-    <div className='w-10 h-10 rounded-full relative overflow-hidden cursor-pointer'>
+    <div className='w-10 h-10 rounded-full relative overflow-hidden cursor-pointer' onClick={()=>signOut()}>
         <Image fill src={image} alt='avatar'/>
 
     </div>)

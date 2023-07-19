@@ -19,7 +19,7 @@ const ChatBody = async({searchParams}: Props) => {
   const [user,currentUser] = await Promise.all([theuser,thecurrentUser])
 
   return (
-    <div className="flex-1 bg-[#12181c] border-l border-l-gray-700 flex flex-col">
+    <div className="flex-1 overflow-y-auto myScroll bg-[#12181c] border-l border-l-gray-700 flex flex-col">
 <ChatContainer user={user as User} currentUser={currentUser as User} />
       <ChatComponent user={user as User} currentUser ={currentUser} />
 

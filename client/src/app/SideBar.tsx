@@ -32,7 +32,7 @@ const SideBar = ({currentUser,allUsers}: Props) => {
         </div>):(
           <div className="flex flex-col h-screen">
 <ContactsHeader setMessages={setMessages} />
-<ContactsBody allUsers={allUsers}/>
+<ContactsBody allUsers={allUsers} currentUser={currentUser}/>
           </div>
         )
       }
