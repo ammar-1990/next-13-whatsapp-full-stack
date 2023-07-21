@@ -1,5 +1,6 @@
 import createError from "../util/createError.js";
 import { prismadb } from "../util/prismadb.js";
+import {renameSync} from 'fs'
 
 
 export async function addMessage (req,res,next){
@@ -13,23 +14,23 @@ const getUser = onlineUsers.get(to)
 const prisma =  prismadb()
 
 try {
-    const newMessage = await prisma.messages.create({
+    const newMessage = await prisma.messages.create({      
         data:{
             senderId : +from,
             recieverId : +to,
           
             message,
-            messageStatus: getUser ? 'delivered' : 'sent'
+            messageStatus: getUser ? 'delivered' : 'sent' 
         },
         include:{
             sender:true,
             reciever:true
         }
     })
-    res.status(201).json(newMessage)
+    res.status(201).json(newMessage)  
 } catch (error) {
     next(error)
-    console.log(error)
+    console.log(error)  
     
 }
 
@@ -40,7 +41,7 @@ try {
 
 
 
-export async function getMessages (req, res, next){
+export async function getMessages (req, res, next){ 
 const prisma = prismadb()
 const {from,to} = req.body
 if(!from || !to) return next(createError('someting went wrong'),400)
@@ -93,4 +94,34 @@ await prisma.messages.updateMany({
 }
 
 
+}
+
+export async function addImage(req,res,next){
+    try {
+      
+        if(req.file){
+          
+            const date = Date.now()
+            const fileName= 'uploads/images/'+date+req.file.originalname
+renameSync(req.file.path, fileName)
+const prisma = prismadb()
+
+const {from, to} = req.query 
+const message = await prisma.messages.create({   
+    data:{
+        message:fileName,
+        senderId:+from, 
+        recieverId:+to,
+       type:'image'
+    }
+})
+
+return res.status(200).json(message)
+
+        }
+        res.status(400).send('no file')
+    } catch (error) {
+        next(error)
+        console.log(error)
+    }
 }

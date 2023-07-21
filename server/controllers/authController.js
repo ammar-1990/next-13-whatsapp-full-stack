@@ -135,7 +135,7 @@ if(!usersByLetters[letter]){
 
 })
 
-res.status(200).json(usersByLetters)
+res.status(200).json(usersByLetters)         
 
 } catch (error) {
     console.log(error)

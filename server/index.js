@@ -4,20 +4,40 @@ import cors from "cors";
 import authRoute from "./routers/authRouter.js";
 import messageRoute from "./routers/messageRouter.js";
 import { Server } from "socket.io";
+import path from 'path';
+import multer from 'multer'
 
 const app = express();
 dotenv.config();
 app.use(cors());
 app.use(express.json());
 
+app.use('/uploads/images', express.static('uploads/images'));
+
 const server = app.listen(process.env.PORT, () =>
-  console.log(`Server started on port ${process.env.PORT}`)
+  console.log(`Server started on port ${process.env.PORT}`) 
 );
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+  
+    cb(null, Date.now() + file.originalname)
+  }
+})
+
+
+
+
+const upload = multer({ storage }) 
 
 
 //socket.io
 
-const io = new Server(server, { cors: { origin: "http://localhost:3000" } });  
+const io = new Server(server, { cors: { origin: "http://localhost:3000" } });   
 global.onlineUsers = new Map();
 io.on('connection',(socket)=>{
 global.chatSocket=socket
@@ -30,7 +50,7 @@ socket.on("send-msg",(data)=>{
  const sendUserSocket = onlineUsers.get(data.to)
  if(sendUserSocket){
     console.log('toUser',sendUserSocket)
-    socket.to(sendUserSocket).emit('msg-recieve',{message:data.message,from:data.from}) 
+    socket.to(sendUserSocket).emit('msg-recieve',{message:data.message,from:data.from,type:data.type})   
  }
 })
 })
