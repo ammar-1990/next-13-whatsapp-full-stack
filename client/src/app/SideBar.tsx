@@ -12,6 +12,7 @@ import { AllUsers } from "@/actions/getAllUsers"
 import { io } from "socket.io-client"
 import { useSocket } from "@/providers/MyProvider"
 import { useRouter } from "next/navigation"
+import { THE_SERVER } from "@/libs/allRoutes"
 
 
 type Props = {
@@ -24,7 +25,7 @@ const {dispatch,state}= useSocket()
 const [once, setOnce] = useState(false)
   useEffect(()=>{
 
-    const newSocket = io("http://localhost:8800")
+    const newSocket = io(THE_SERVER)
     newSocket.emit('add-user',(currentUser?.id))
     dispatch({type:'NEW_SOCKET',payload:newSocket})
 
