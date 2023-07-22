@@ -2,6 +2,7 @@
 import { User } from '@/actions/getCurrentUser'
 import { useCallback, useState, useEffect, useRef, ChangeEvent } from 'react'
 import {BsEmojiSmile} from 'react-icons/bs'
+import {BiSolidMicrophone} from 'react-icons/bi'
 import {ImAttachment} from 'react-icons/im'
 import {IoMdSend} from 'react-icons/io'
 import axios from 'axios'
@@ -10,6 +11,8 @@ import { ADD_IMAGE, ADD_MESSAGE } from '@/libs/allRoutes'
 import { useRouter } from 'next/navigation'
 import { useSocket } from '@/providers/MyProvider'
 import EmojiPicker,{Theme} from 'emoji-picker-react'
+import CaptureAudio from './CaptureAudio'
+
 
 type Props = {
   user:User | null
@@ -22,6 +25,7 @@ const ChatComponent = ({user,currentUser}: Props) => {
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [emoji, setEmoji] = useState(false)
+  const [record, setRecord] = useState(false)
 const router = useRouter()
 const handleSubmit = useCallback(async(e:React.FormEvent<HTMLFormElement>)=>{
   e.preventDefault()
@@ -83,8 +87,10 @@ router.refresh()
 },[state.newSocket,axios,router,toast])
 
   return (
-    <form onSubmit={handleSubmit} className='p-4 bg-primary flex items-center gap-4'>
-<div
+    <form onSubmit={handleSubmit} className='p-4 bg-primary flex items-center gap-4 h-[70px]'>
+      {
+        record ? <CaptureAudio currentUser={currentUser} user={user} hide={setRecord} /> : <>
+        <div
 className='flex items-center gap-4'>
     <span ref={emoRef} className='text-white cursor-pointer relative' onClick={()=>setEmoji(true)}><BsEmojiSmile size={18} />
     {emoji && <span id='emoji' className='absolute bottom-12 left-12' ><EmojiPicker theme={'dark' as Theme} onEmojiClick={(e)=>setMessage(prev=>prev+e.emoji)} /></span>}
@@ -93,8 +99,14 @@ className='flex items-center gap-4'>
 </div>
 <input value={message} onChange={e=>setMessage(e.target.value)} type='text' className='p-1 outline-none flex-1 rounded-lg bg-[#28363f]  px-3 text-white' placeholder='Type a message'  />
 <div>
-<button disabled={!message.trim() || isLoading} type='submit'  className='text-white  flex items-center justify-center disabled:opacity-40'><IoMdSend size={18} /></button>
+{message?<button disabled={!message.trim() || isLoading} type='submit'  className='text-white  flex items-center justify-center disabled:opacity-40'><IoMdSend size={18} /></button>:
+<button onClick={()=>setRecord(true)}  type='button'  className='text-white  flex items-center justify-center disabled:opacity-40'><BiSolidMicrophone size={18} /></button>
+}
+
 </div>
+        </>
+      }
+
     </form>
   )
 }

@@ -12,10 +12,10 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
-app.use('/uploads/images', express.static('uploads/images'));
+app.use('/uploads/images', express.static('uploads/images')); 
 
 const server = app.listen(process.env.PORT, () =>
-  console.log(`Server started on port ${process.env.PORT}`) 
+  console.log(`Server started on port ${process.env.PORT}`)   
 );
 
 
@@ -25,8 +25,8 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
   
-    cb(null, Date.now() + file.originalname)
-  }
+    cb(null, Date.now() + file.originalname) 
+  } 
 })
 
 
