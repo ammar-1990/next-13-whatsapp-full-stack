@@ -14,6 +14,10 @@ import { BiSolidMicrophone } from "react-icons/bi";
 import { BsTrashFill } from "react-icons/bs";
 import { FaPauseCircle, FaPlay, FaStop } from "react-icons/fa";
 import { MdSend } from "react-icons/md";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { ADD_AUDIO } from "@/libs/allRoutes";
 
 
 type Props = {
@@ -22,8 +26,9 @@ type Props = {
   user: User;
 };
 
-const CaptureAudio = ({ hide }: Props) => {
+const CaptureAudio = ({ hide,currentUser,user }: Props) => {
   const [isRecording, setIsRecording] = useState(false);
+  const [isSending, setIsSending] = useState(false)
   const [recordedAudio, setRecordedAudio] = useState< HTMLAudioElement | null>(null);
   const [waveform, setWaveform] = useState<WaveSurfer | null>(null);
   const [recordingDuration, setRecordingDuration] = useState(0);
@@ -48,6 +53,7 @@ const CaptureAudio = ({ hide }: Props) => {
     setCurrentPlaybackTime(0)
     setTotalDuration(0)
     setIsRecording(true)
+    setRecordedAudio(null)
     navigator.mediaDevices.getUserMedia({audio:true}).then((stream)=>{
         const mediaRecorder = new MediaRecorder(stream)
         mediaRecorderRef.current = mediaRecorder
@@ -116,9 +122,31 @@ audioChunks.push(event.data)
 
   }
 
+const router = useRouter()
+
+  const sendRecording = useCallback(async()=>{
+    const formData = new FormData()
+    if(renderedAudio){
+        formData.append('audio',renderedAudio)
+        setIsSending(true)
+        try {
+          const {data} = await axios.post(ADD_AUDIO + `?from=${currentUser?.id}&to=${user?.id}`,formData,{headers:{'content-type': 'multipart/form-data' }})
+          console.log(data.message)
+         newSocket?.emit('send-msg',{to:user?.id,from:currentUser?.id,message:data.message,type:'audio'})
+       hide(false)
+          toast.success('Audio is sent')
+        router.refresh()
+        } catch (error) {
+          console.log(error) 
+        }finally{
+            setIsSending(false)
+        }
+    }
+  
+    
 
 
-  const sendRecording = useCallback(async()=>{},[])
+  },[renderedAudio,axios,router,newSocket,toast,hide])
 
 
 useEffect(() => {
@@ -214,12 +242,12 @@ useEffect(()=>{
           </div>
         )}
 
-        <div className="w-60" hidden={isRecording} ref={waveFormRef} />
-        {recordedAudio && isPlaying && <span>{formatTime(currentPlaybackTime)}</span>}
-        {recordedAudio && !isPlaying && <span>{formatTime(totalDuration)}</span>}
+        <div className="w-60 " hidden={isRecording} ref={waveFormRef} />
+        {recordedAudio && isPlaying && <span className="text-white">{formatTime(currentPlaybackTime)}</span>}
+        {recordedAudio && !isPlaying && <span className="text-white">{formatTime(totalDuration)}</span>}
 
         <audio ref={audioRef} hidden />
-
+        </div>
         <div className="mr-4">
           {!isRecording ? (
             <BiSolidMicrophone
@@ -237,8 +265,8 @@ useEffect(()=>{
             />
           )}
         </div>
-        <button type="button">   <MdSend color="white" title="send" onClick={sendRecording}/></button>
-      </div>
+        <button  disabled={!renderedAudio || isSending} type="button" className="disabled:opacity-40" onClick={sendRecording}>   <MdSend color="white" title="send" /></button>
+      
 
    
     </div>

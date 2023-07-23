@@ -9,6 +9,7 @@ import Image from "next/image";
 import { THE_SERVER } from "@/libs/allRoutes";
 import TextMessage from "./TextMessage";
 import ImageMessage from "./ImageMessage";
+import VoiceMessage from "./VoiceMessage";
 
 type Props = { allMessages: Message[]; user: User; currentUser: User };
 
@@ -66,6 +67,7 @@ const MessagesContainer = ({ allMessages, user, currentUser }: Props) => {
           {message.type === "image" && (
             <ImageMessage message={message} currentUser={currentUser} />
           )}
+          {message.type === 'audio' && (<VoiceMessage />)}
         </div>
       ))}
       <Scroller allMessages={allMessages} />
