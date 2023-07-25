@@ -67,7 +67,9 @@ await prisma.messages.updateMany({
         }, 
         orderBy:{
             createdAt:'asc'
-        }
+        },
+        include:{sender:true,
+        reciever:true}
     })
 // console.log(messages)
 
@@ -96,7 +98,7 @@ await prisma.messages.updateMany({
 
 }
 
-export async function addImage(req,res,next){
+export async function addImage(req,res,next){   
     try {
       
         if(req.file){
@@ -113,6 +115,41 @@ const message = await prisma.messages.create({
         senderId:+from, 
         recieverId:+to,
        type:'image'
+    }
+})
+
+return res.status(200).json(message)
+
+        }
+        res.status(400).send('no file')
+    } catch (error) {
+        next(error)
+        console.log(error)
+    }
+}
+
+
+
+
+
+
+export async function addAudio(req,res,next){   
+    try {
+      
+        if(req.file){
+          
+            const date = Date.now()
+            const fileName= 'uploads/recordings/'+date+req.file.originalname
+renameSync(req.file.path, fileName)
+const prisma = prismadb()
+
+const {from, to} = req.query 
+const message = await prisma.messages.create({   
+    data:{
+        message:fileName,
+        senderId:+from, 
+        recieverId:+to,
+       type:'audio'
     }
 })
 

@@ -210,6 +210,7 @@ useEffect(()=>{
     const seconds = Math.floor(time % 60);
     return `${minutes.toString().padStart(2,"0")}:${seconds.toString().padStart(2,"0")}`
   }
+  
   return (
     <div className="flex justify-end w-full items-center">
       <button type="button" onClick={() => hide(false)} className="text-white">

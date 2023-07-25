@@ -30,6 +30,7 @@ const MessagesContainer = ({ allMessages, user, currentUser }: Props) => {
             message: data.message,
             createdAt: Date.now(),
             type: data.type,
+          
           },
         });
         console.log(state.messages);
@@ -67,7 +68,7 @@ const MessagesContainer = ({ allMessages, user, currentUser }: Props) => {
           {message.type === "image" && (
             <ImageMessage message={message} currentUser={currentUser} />
           )}
-          {message.type === 'audio' && (<VoiceMessage />)}
+          {message.type === 'audio' && (<VoiceMessage user={user} currentUser={currentUser} message={message}/>)}
         </div>
       ))}
       <Scroller allMessages={allMessages} />
