@@ -1,6 +1,6 @@
 import { Message } from '@/actions/getAllMessages'
 import { User } from '@/actions/getCurrentUser'
-import {format} from 'date-fns'
+import {formatDistanceToNow} from 'date-fns'
 import {BsCheck2} from 'react-icons/bs'
 import {BsCheck2All} from 'react-icons/bs'
 
@@ -13,7 +13,7 @@ const TextMessage = ({message,currentUser}: Props) => {
   return (
 <div className={`${currentUser?.id === message.senderId ? ' bg-green-700/40': 'bg-zinc-700/40'} text-white max-w-[45%] p-2 rounded-lg flex items-end gap-2`}>
     <p className='overflow-hidden'>{message.message}</p>
-    <span className='text-zinc-200 text-[10px] flex-shrink-0'>{format(new Date(message.createdAt),"hh:mm a")}</span>
+    <span className='text-zinc-200 text-[10px] flex-shrink-0'>{formatDistanceToNow(new Date(message.createdAt))}</span>
     {message.senderId === currentUser?.id &&<span>
       
       {message.messageStatus === 'sent' && <BsCheck2 color='white' size={15} />}

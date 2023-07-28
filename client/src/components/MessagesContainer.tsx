@@ -10,6 +10,8 @@ import { THE_SERVER } from "@/libs/allRoutes";
 import TextMessage from "./TextMessage";
 import ImageMessage from "./ImageMessage";
 import VoiceMessage from "./VoiceMessage";
+import SearchComponent from "@/app/SearchComponent";
+import SearchingComponent from "./SearchingComponent";
 
 type Props = { allMessages: Message[]; user: User; currentUser: User };
 
@@ -50,7 +52,8 @@ const MessagesContainer = ({ allMessages, user, currentUser }: Props) => {
     );
 
   return (
-    <div className=" flex-1 relative overflow-y-auto myScroll p-4">
+    <div className=" flex-1 relative overflow-y-auto myScroll p-4 ">
+      <SearchingComponent user={user} />
       {state.messages.map((message) => (
         <div
           key={message.id}

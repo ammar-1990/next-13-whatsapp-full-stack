@@ -4,8 +4,8 @@ import { Message } from '@/actions/getAllMessages'
 import { User } from '@/actions/getCurrentUser'
 import Avatar from '@/app/(auth)/signin/Avatar'
 import { THE_SERVER } from '@/libs/allRoutes'
-import { useSocket } from '@/providers/MyProvider'
-import { format } from 'date-fns'
+
+import {  formatDistanceToNow } from 'date-fns'
 import React, { useRef, useState ,useEffect} from 'react'
 import { BsCheck2, BsCheck2All } from 'react-icons/bs'
 import { FaPlay, FaStop } from 'react-icons/fa'
@@ -118,11 +118,11 @@ return ()=>waveform.current?.destroy()
         <div className='relative '>
             <div ref={waveFormRef} className='w-60'>
                 <div className='flex justify-between text-xs text-white items-center absolute -bottom-5 right-1 w-full'>
-                    <span className='text-xs'>
+                    <span className='text-[10px]'>
                     {formatTime(isPlaying ? currentPlaybackTime : totalDuration as number)}
                     </span>
                     <div className='flex gap-1 items-center'>
-                    <span className='text-zinc-200 text-[10px] flex-shrink-0 text-xs'>{format(new Date(message.createdAt),"hh:mm a")}</span>
+                    <span className='text-zinc-200  flex-shrink-0 text-[10px]'>{formatDistanceToNow(new Date(message.createdAt))}</span>
                     {message.senderId === currentUser?.id &&<span>
       
       {message.messageStatus === 'sent' && <BsCheck2 color='white' size={15} />}

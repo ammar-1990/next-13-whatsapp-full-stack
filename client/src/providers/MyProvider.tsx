@@ -6,9 +6,10 @@ import { Socket } from "socket.io-client";
 type State = {
   newSocket: Socket | null;
   messages: Message[] | [];
+  isSearching:boolean
 };
 
-type Action = { type: "NEW_SOCKET" | "MESSAGES" | "NEW_MESSAGE"; payload: any };
+type Action = { type: "NEW_SOCKET" | "MESSAGES" | "NEW_MESSAGE" | "OFF" | "ON"; payload?: any };
 
 type SocketContext = {
   state: State;
@@ -16,7 +17,7 @@ type SocketContext = {
 };
 
 const MyContext = createContext<SocketContext>({
-  state: { newSocket: null, messages: [] },
+  state: { newSocket: null, messages: [],isSearching:false },
   dispatch: () => {},
 });
 
@@ -27,6 +28,8 @@ function socketReducer(state: State, action: Action) {
     case "NEW_SOCKET": return {...state,newSocket:action.payload}
     case "MESSAGES": return {...state,messages:action.payload}
     case "NEW_MESSAGE" : return {...state,messages:[...state.messages,action.payload]}
+    case "ON" : return {...state,isSearching:true}
+    case "OFF" : return {...state,isSearching:false}
     default:
       return state;
   }
@@ -36,6 +39,7 @@ export function MyContextProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(socketReducer, {
     newSocket: null,
     messages: [],
+    isSearching:false
   });
 
   return (

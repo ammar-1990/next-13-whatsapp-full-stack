@@ -12,7 +12,7 @@ type Props = {
 
 const SideHeader = ({currentUser,setMessages}: Props) => {
   return (
-    <div className="flex items-center justify-between p-3">
+    <div className="flex items-center h-[70px] justify-between p-3">
     <Avatar sm image={currentUser?.profileImg as string} />
     <div className='flex items-center gap-6'>
         <span onClick={()=>setMessages(true)} className='cursor-pointer'><MdOutlineMessage color='white' size={20} /></span>

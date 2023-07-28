@@ -6,12 +6,16 @@ import { BsFillCameraVideoFill } from "react-icons/bs";
 import Avatar from '@/app/(auth)/signin/Avatar'
 import React from 'react'
 import { User } from "@/actions/getCurrentUser";
+import { useSocket } from "@/providers/MyProvider";
 
 type Props = {user:User | null}
 
 const ChatHeader = ({user}: Props) => {
+
+
+  const {state,dispatch} = useSocket()
   return (
-    <div className='p-3 flex items-center justify-between '>
+    <div className='p-3 h-[70px] flex items-center justify-between '>
 
         <div className='flex items-center gap-5'>
             <Avatar image={user?.profileImg as string}  sm />
@@ -25,7 +29,7 @@ const ChatHeader = ({user}: Props) => {
         <div className="flex items-center gap-7">
             <span className="text-white  cursor-pointer"><IoIosCall  size={20}/></span>
             <span className="text-white  cursor-pointer"><BsFillCameraVideoFill  size={20}/></span>
-            <span className="text-white  cursor-pointer"><SlMagnifier size={20} /></span>
+            <span onClick={()=>{dispatch({type:'ON'});console.log(state.isSearching)}} className="text-white  cursor-pointer"><SlMagnifier size={20} /></span>
             <span className="text-white  cursor-pointer"><SlOptionsVertical  size={20}/></span>
 
         </div>
