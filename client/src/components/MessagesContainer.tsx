@@ -53,7 +53,7 @@ const MessagesContainer = ({ allMessages, user, currentUser }: Props) => {
 
   return (
     <div className=" flex-1 relative overflow-y-auto myScroll p-4 ">
-      <SearchingComponent user={user} />
+      <SearchingComponent user={user} currentUser={currentUser}/>
       {state.messages.map((message) => (
         <div
           key={message.id}

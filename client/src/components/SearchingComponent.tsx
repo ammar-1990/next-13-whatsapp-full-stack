@@ -7,13 +7,15 @@ import SearchHeader from './SearchHeader'
 import { SlMagnifier } from 'react-icons/sl'
 import { User } from '@/actions/getCurrentUser'
 import {  formatDistanceToNow } from 'date-fns'
+import Avatar from '@/app/(auth)/signin/Avatar'
 
 type Props = {
-    user:User
+    user:User,
+    currentUser:User
   
 }
 
-const SearchingComponent = ({user}: Props) => {
+const SearchingComponent = ({user,currentUser}: Props) => {
     const {state,dispatch} = useSocket()
 
     if(!state.isSearching) return
@@ -54,12 +56,17 @@ const SearchingComponent = ({user}: Props) => {
        
       </div>}
       <div className='flex flex-col flex-1'>
-        {search && state.messages.filter((el)=>el.type==="text"&&el.message.includes(search)).length === 0 && <p>No such messages</p>}
-        {search && state.messages.filter(el=>el.type==='text' &&el.message.includes(search)).map((message)=>
+        {search && state.messages.filter((el)=>el.type==="text"&&el.message.includes(search)).length === 0 && <p className='text-xs text-gray-300 text-center'>No such messages</p>}
+        {search && state.messages.filter(el=>el.type==='text' &&el.message.includes(search)).reverse().map((message)=>
         
         <div key={message.id} className='text-white p-3 flex flex-col hover:bg-primary'>
-        <span className='text-zinc-200 text-[10px] flex-shrink-0'>{formatDistanceToNow(new Date(message.createdAt))}</span>
+            <div className='flex items-center justify-between'>
+            <span className='text-zinc-200 text-[10px] flex-shrink-0'>{formatDistanceToNow(new Date(message.createdAt))}</span>
+            <p className='mt-1 capitalize text-[8px]'>By {message.sender?.id === currentUser?.id? 'you' : message.sender?.name}</p>
+            </div>
+       
         <p className='text-sm text-green-400'>{message.message}</p>
+ 
         </div>)}
 
       </div>

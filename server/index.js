@@ -16,7 +16,7 @@ app.use('/uploads/images', express.static('uploads/images'));
 app.use('/uploads/recordings', express.static('uploads/recordings'));                
       
 const server = app.listen(process.env.PORT, () =>
-  console.log(`Server started on port ${process.env.PORT}`)              
+  console.log(`Server started on port ${process.env.PORT}`)               
 ); 
 
 
