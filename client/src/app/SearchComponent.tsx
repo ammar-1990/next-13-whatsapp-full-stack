@@ -4,38 +4,16 @@ import { AiFillCaretDown } from "react-icons/ai";
 import {useSearchParams , useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import List from "./List";
+import { useSocket } from "@/providers/MyProvider";
 type Props = {arrow?:boolean};
 
 const SearchComponent = ({arrow}: Props) => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [search, setSearch] = useState(searchParams.get('search') ||'')
 
 
 
-    
-
-    const handleChange = useCallback(()=>{
-        const current = new URLSearchParams(Array.from(searchParams.entries()))
-if(!search) {
-    current.delete("search");
-    router.push(`/?${current}`);
-    router.refresh()
-} 
-else{
-    current.set("search",search);
-    router.push(`/?${current}`)} 
 
 
-    },[search,router])
-
-    useEffect(()=>{
-        const timer = setTimeout(()=>{
-            handleChange()
-        },500)
-
-        return ()=>clearTimeout(timer)
-    },[handleChange])
+    const {dispatch,state} = useSocket()
 
 
   return (
@@ -48,8 +26,8 @@ else{
 
         <input
           placeholder="Search"
-          value={search}
-          onChange={e=>setSearch(e.target.value)}
+        value={state.search}
+        onChange={(e)=>dispatch({type:"SEARCH",payload:e.target.value})}
           type="text"
           className="flex-1 p-1 text-xs bg-primary outline-none text-white w-12"
         />

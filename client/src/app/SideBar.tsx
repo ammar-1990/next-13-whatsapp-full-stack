@@ -13,14 +13,17 @@ import { io } from "socket.io-client"
 import { useSocket } from "@/providers/MyProvider"
 import { useRouter } from "next/navigation"
 import { THE_SERVER } from "@/libs/allRoutes"
+import { StartUp } from "@/actions/getStartUp"
 
 
 type Props = {
     currentUser: User ,
-    allUsers:AllUsers
+    allUsers:AllUsers,
+    myStartUp:StartUp
 }
 
-const SideBar = ({currentUser,allUsers}: Props) => {
+const SideBar = ({currentUser,allUsers,myStartUp}: Props) => {
+ 
 const {dispatch,state}= useSocket()
 const [once, setOnce] = useState(false)
   useEffect(()=>{
@@ -31,6 +34,15 @@ const [once, setOnce] = useState(false)
 
 
   },[currentUser,dispatch])
+
+
+  useEffect(()=>{
+    dispatch({type:'ONLINE',payload:myStartUp?.onlineUsers})
+    dispatch({type:'USERS',payload:myStartUp?.users})
+
+    console.log(state.onlineUsers,state.users)
+    console.log('server',myStartUp)
+  },[myStartUp,dispatch])
 const router = useRouter()
 
 
@@ -45,7 +57,7 @@ const router = useRouter()
         <SideHeader currentUser={currentUser} setMessages={setMessages} />
         <div className="flex-1 bg-secondary flex flex-col">
         <SearchComponent />
-        <List allUsers={allUsers}/>
+        <List myStartUp={myStartUp} currentUser={currentUser}/>
         
         </div>
         </div>):(

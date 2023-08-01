@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import axios from "axios";
 import { GET_USER } from "@/libs/allRoutes";
+import { Message } from "./getAllMessages";
 
 export type User = {
     id:number,
@@ -9,7 +10,10 @@ export type User = {
     email:string,
     profileImg?:string,
     createdAt:Date,
-    updatedAt:Date
+    updatedAt:Date,
+    sentMessages?:Message[],
+    recievedMessages?:Message[]
+    
 } | null
 
 export async function getSession(){

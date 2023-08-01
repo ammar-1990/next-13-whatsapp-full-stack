@@ -1,5 +1,5 @@
 import express from 'express'
-import {addAudio, addImage,  addMessage, getMessages } from '../controllers/messagesController.js'
+import {addAudio, addImage,  addMessage, getMessages, startUp } from '../controllers/messagesController.js'
 import multer from 'multer'
 
 const router = express.Router()
@@ -18,5 +18,6 @@ router.post('/add-message',addMessage)
 router.post('/all-messages',getMessages) 
 router.post('/add-image',uploadImage.single('image'),addImage)  
 router.post('/add-audio',uploadAudio.single('audio'),addAudio)   
+router.get('/start-up/:from',startUp) 
 
 export default router

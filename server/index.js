@@ -16,7 +16,7 @@ app.use('/uploads/images', express.static('uploads/images'));
 app.use('/uploads/recordings', express.static('uploads/recordings'));                
       
 const server = app.listen(process.env.PORT, () =>
-  console.log(`Server started on port ${process.env.PORT}`)               
+  console.log(`Server started on port ${process.env.PORT}`)                
 ); 
 
 
@@ -63,5 +63,6 @@ app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "something went wrong";
 
-  return res.status(errorStatus).send(errorMessage);
+  return res.status(errorStatus).send(errorMessage);  
 });
+             
