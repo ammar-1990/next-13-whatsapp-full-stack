@@ -43,6 +43,47 @@ const [once, setOnce] = useState(false)
     console.log(state.onlineUsers,state.users)
     console.log('server',myStartUp)
   },[myStartUp,dispatch])
+
+
+
+  useEffect(()=>{
+if(state.newSocket){
+
+
+  state.newSocket.on('incoming-voice-call',({from,roomId,callType})=>{
+    dispatch({type:'inVoiceCall',payload:{...from,roomId,callType}})
+
+  });
+
+  state.newSocket.on('incoming-video-call',({from,roomId,callType})=>{
+    dispatch({type:'inVideoCall',payload:{...from,roomId,callType}})
+
+  });
+
+
+  state.newSocket.on('voice-call-rejected',()=>{
+    dispatch({type:'END_CALL'})
+
+  });
+
+
+  state.newSocket.on('video-call-rejected',()=>{
+    dispatch({type:'END_CALL'})
+
+  });
+
+
+
+
+}
+console.log(state.inVideoCall)
+console.log(state.inVoiceCall)
+  },[state.newSocket])
+
+
+
+
+
 const router = useRouter()
 
 

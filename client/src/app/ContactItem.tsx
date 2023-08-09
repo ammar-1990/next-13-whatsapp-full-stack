@@ -3,6 +3,7 @@ import { User } from '@/actions/getCurrentUser'
 import React, { useCallback } from 'react'
 import Avatar from './(auth)/signin/Avatar'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useSocket } from '@/providers/MyProvider'
 
 type Props = {
     letter:string
@@ -19,11 +20,13 @@ const ContactItem = ({letter,users,currentUser}: Props) => {
         router.push(`/?${current}`)
         router.refresh()
     },[])
+
+    const {state} = useSocket()
   return (
     <div className=''>
         <p className='text-[#5b88a4] p-4'>{letter}</p>
         <div>
-            {users.map(user=>user?.id!==currentUser?.id&&<div onClick={()=>handleClick(user?.id.toString() as string)} className='pt-3 px-2 flex items-center gap-3 cursor-pointer hover:bg-primary' key={user?.id}>
+            {users.filter(el=>el?.name.includes(state.search)).map(user=>user?.id!==currentUser?.id&&<div onClick={()=>handleClick(user?.id.toString() as string)} className='pt-3 px-2 flex items-center gap-3 cursor-pointer hover:bg-primary' key={user?.id}>
                 <Avatar sm image={user?.profileImg as string} />
                 <div className='border-b pb-3 border-gray-800 w-full'>
                     <p className='capitalize text-white text-sm'>{user?.name}</p>

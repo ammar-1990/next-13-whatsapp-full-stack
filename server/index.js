@@ -16,14 +16,14 @@ app.use('/uploads/images', express.static('uploads/images'));
 app.use('/uploads/recordings', express.static('uploads/recordings'));                
       
 const server = app.listen(process.env.PORT, () =>
-  console.log(`Server started on port ${process.env.PORT}`)                
-); 
+  console.log(`Server started on port ${process.env.PORT}`)                         
+);       
 
-
+         
     
           
-
-
+ 
+   
 
 
 
@@ -45,7 +45,57 @@ socket.on("send-msg",(data)=>{
     console.log('toUser',sendUserSocket)
     socket.to(sendUserSocket).emit('msg-recieve',{message:data.message,from:data.from,type:data.type})   
  }
-})
+});
+socket.on('outgoing-voice-call',(data)=>{
+const sendUser = onlineUsers.get(data.to)
+if(sendUser){ 
+  socket.to(sendUser).emit('incoming-voice-call',{ 
+    from:data.from,
+    roomId:data.roomId,
+    callType:data.callType
+
+  })  
+}
+});                 
+                          
+socket.on('outgoing-video-call',(data)=>{
+  const sendUser = onlineUsers.get(data.to)
+  if(sendUser){
+    socket.to(sendUser).emit('incoming-video-call',{
+      from:data.from,
+      roomId:data.roomId,
+      callType:data.callType
+  
+    })
+  }
+  });
+
+  socket.on('reject-voice-call',(data)=>{
+const sendUser = onlineUsers.get(data.from)
+
+if (sendUser){
+  socket.to(sendUser).emit('voice-call-rejected')    
+}
+  });
+
+  socket.on('reject-video-call',(data)=>{
+const sendUser = onlineUsers.get(data.from)
+
+if (sendUser){
+  socket.to(sendUser).emit('video-call-rejected')
+}
+  });
+
+
+  socket.on('accept-incoming-call',({id})=>{
+const sendUser = onlineUsers.get(id)
+
+if (sendUser){
+  socket.to(sendUser).emit('accept-call')
+}
+  });
+
+
 })
 
 
@@ -65,4 +115,4 @@ app.use((err, req, res, next) => {
 
   return res.status(errorStatus).send(errorMessage);  
 });
-             
+                                    

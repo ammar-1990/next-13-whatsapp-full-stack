@@ -1,40 +1,57 @@
-'use client'
+"use client";
 import { SlMagnifier } from "react-icons/sl";
 import { SlOptionsVertical } from "react-icons/sl";
 import { IoIosCall } from "react-icons/io";
 import { BsFillCameraVideoFill } from "react-icons/bs";
-import Avatar from '@/app/(auth)/signin/Avatar'
-import React from 'react'
+import Avatar from "@/app/(auth)/signin/Avatar";
+import React from "react";
 import { User } from "@/actions/getCurrentUser";
 import { useSocket } from "@/providers/MyProvider";
 
-type Props = {user:User | null}
+type Props = { user: User | null };
 
-const ChatHeader = ({user}: Props) => {
+const ChatHeader = ({ user }: Props) => {
+  const { state, dispatch } = useSocket();
 
+  const handleVoice = () => {
+    dispatch({ type: "voiceCall", payload: { ...user, type: "out-going",callType:"voice",roomId:Date.now() } });
+  };
+  const handleVideo = () => {
+    dispatch({ type: "videoCall", payload: { ...user, type: "out-going",callType:"video",roomId:Date.now() } });
+  };
 
-  const {state,dispatch} = useSocket()
   return (
-    <div className='p-3 h-[70px] flex items-center justify-between '>
-
-        <div className='flex items-center gap-5'>
-            <Avatar image={user?.profileImg as string}  sm />
-            <div className='flex flex-col text-xs text-white'>
-<span className='font-semibold'>{user?.name}</span>
-<span>online/offline</span>
-            </div>
+    <div className="p-3 h-[70px] flex items-center justify-between ">
+      <div className="flex items-center gap-5">
+        <Avatar image={user?.profileImg as string} sm />
+        <div className="flex flex-col text-xs text-white">
+          <span className="font-semibold">{user?.name}</span>
+          <span>online/offline</span>
         </div>
+      </div>
 
-
-        <div className="flex items-center gap-7">
-            <span className="text-white  cursor-pointer"><IoIosCall  size={20}/></span>
-            <span className="text-white  cursor-pointer"><BsFillCameraVideoFill  size={20}/></span>
-            <span onClick={()=>{dispatch({type:'ON'});console.log(state.isSearching)}} className="text-white  cursor-pointer"><SlMagnifier size={20} /></span>
-            <span className="text-white  cursor-pointer"><SlOptionsVertical  size={20}/></span>
-
-        </div>
+      <div className="flex items-center gap-7">
+        <span className="text-white  cursor-pointer" onClick={handleVoice}>
+          <IoIosCall size={20} />
+        </span>
+        <span className="text-white  cursor-pointer" onClick={handleVideo}>
+          <BsFillCameraVideoFill size={20} />
+        </span>
+        <span
+          onClick={() => {
+            dispatch({ type: "ON" });
+            console.log(state.isSearching);
+          }}
+          className="text-white  cursor-pointer"
+        >
+          <SlMagnifier size={20} />
+        </span>
+        <span className="text-white  cursor-pointer">
+          <SlOptionsVertical size={20} />
+        </span>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChatHeader
+export default ChatHeader;
