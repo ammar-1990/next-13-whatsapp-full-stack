@@ -68,6 +68,7 @@ if(state.newSocket){
 
 
   state.newSocket.on('video-call-rejected',()=>{
+
     dispatch({type:'END_CALL'})
 
   });

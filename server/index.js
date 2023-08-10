@@ -77,9 +77,10 @@ if (sendUser){
   socket.to(sendUser).emit('voice-call-rejected')    
 }
   });
-
+ 
   socket.on('reject-video-call',(data)=>{
 const sendUser = onlineUsers.get(data.from)
+
 
 if (sendUser){
   socket.to(sendUser).emit('video-call-rejected')
