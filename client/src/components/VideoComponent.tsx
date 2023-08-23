@@ -36,7 +36,7 @@ name:currentUser?.name,
 if(!state.videoCall) return null
 
   return (
-<CallContainer currentUser={currentUser}  user={user} type='video'/>
+<CallContainer currentUser={currentUser}  user={user} type='video' callType={state.videoCall.type} roomId={state.videoCall.roomId} />
   )
 }
 

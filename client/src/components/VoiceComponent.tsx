@@ -38,7 +38,7 @@ name:currentUser?.name,
   
 
   return (
-<CallContainer currentUser={currentUser} user={user} type='voice'/>
+<CallContainer currentUser={currentUser} user={user} type='voice' callType={state.voiceCall.type} roomId={state.voiceCall.roomId}/>
   )
 }
 

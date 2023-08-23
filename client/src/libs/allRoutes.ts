@@ -1,11 +1,12 @@
 
 export const THE_SERVER = "http://localhost:8800/"
-export const LOGIN = "http://localhost:8800/api/auth/login"
-export const GET_USER = "http://localhost:8800/api/auth/getuser"
-export const REGISTER = "http://localhost:8800/api/auth/register"
-export const ALL_USERS = "http://localhost:8800/api/auth/all"
-export const ADD_MESSAGE = "http://localhost:8800/api/messages/add-message"
-export const ALL_MESSAGES = "http://localhost:8800/api/messages/all-messages"
-export const ADD_IMAGE = "http://localhost:8800/api/messages/add-image"
-export const ADD_AUDIO = "http://localhost:8800/api/messages/add-audio"
-export const START_UP = "http://localhost:8800/api/messages/start-up/"
+export const LOGIN = `${THE_SERVER}api/auth/login`
+export const GET_USER = `${THE_SERVER}api/auth/getuser`
+export const REGISTER = `${THE_SERVER}api/auth/register`
+export const ALL_USERS = `${THE_SERVER}api/auth/all`
+export const CALL_TOKEN = `${THE_SERVER}api/auth/generate-token`
+export const ADD_MESSAGE = `${THE_SERVER}api/messages/add-message`
+export const ALL_MESSAGES = `${THE_SERVER}api/messages/all-messages`
+export const ADD_IMAGE = `${THE_SERVER}api/messages/add-image`
+export const ADD_AUDIO = `${THE_SERVER}api/messages/add-audio`
+export const START_UP = `${THE_SERVER}api/messages/start-up/`
