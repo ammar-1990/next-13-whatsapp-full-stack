@@ -31,8 +31,9 @@ const spRef = useRef(null)
 
   const data = [{
     name:"Exit",
-    callback:()=>{
+    callback:(e:React.MouseEvent)=>{
       router.push('/');
+      e.stopPropagation()
       setShowMenue(false)
     }
   }]
@@ -49,7 +50,7 @@ setShowMenue(true)
         <Avatar image={user?.profileImg as string} sm />
         <div className="flex flex-col text-xs text-white">
           <span className="font-semibold">{user?.name}</span>
-          <span>online/offline</span>
+          <span>{state.onlineUsers?.includes(user?.id)? 'online':'offline'}</span>
         </div>
       </div>
 

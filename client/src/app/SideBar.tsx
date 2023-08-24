@@ -73,6 +73,11 @@ if(state.newSocket){
 
   });
 
+  state.newSocket.on('online-users',({onlineUsers})=>{
+    dispatch({type:'ONLINE',payload:onlineUsers})
+
+  })
+
 
 
 

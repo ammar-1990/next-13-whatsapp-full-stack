@@ -32,7 +32,7 @@ const Menu = ({ coordinates, data, setShowMenue,avRef }: Props) => {
     <div
 
       style={{ position: "fixed", top: coordinates.y, left: coordinates.x }}
-      className={` block bg-secondary shadow-md text-white text-xs rounded-lg overflow-hidden`}
+      className={` block bg-secondary shadow-md text-white text-xs rounded-lg overflow-hidden z-50`}
     >
       <ul>
         {data.map((el) => {
@@ -40,7 +40,7 @@ const Menu = ({ coordinates, data, setShowMenue,avRef }: Props) => {
             return (
               <li
                 onClick={el.callback}
-                className="p-3 px-5 cursor-pointer capitalize hover:bg-[#28373f]"
+                className="p-3 px-5 cursor-pointer capitalize hover:bg-[#28373f] z-50"
                 key={el.name}
               >
                 {el.name}
@@ -51,7 +51,7 @@ const Menu = ({ coordinates, data, setShowMenue,avRef }: Props) => {
 
                 return (
                     <li  key={el.name}  className="">
-                        <label className="p-3 px-5  block cursor-pointer capitalize hover:bg-[#28373f]" htmlFor="fileInput" >{el.name}</label>
+                        <label className="p-3 px-5  block cursor-pointer capitalize hover:bg-[#28373f] z-50" htmlFor="fileInput" >{el.name}</label>
                         <input id="fileInput" hidden type="file" onChange={el.callback} />
                     </li>
                 )

@@ -62,7 +62,7 @@ setState(prev=>({...prev,loading:true}))
 <input type="email" required className="input" placeholder="E-mail" onChange={e=>setState(prev=>({...prev,email:e.target.value}))} value={state.email}/>
 <input type="password" required className="input" placeholder="Password"  onChange={e=>setState(prev=>({...prev,password:e.target.value}))} value={state.password} />
 <button disabled={!state.email || !state.password || state.loading} type="submit" className="button disabled:bg-gray-400">{state.loading ? 'Logging in ...':"Login"}</button>
-<button  type="button" className="button disabled:bg-gray-400" onClick={()=>{signOut()}}>logout</button>
+
 </div>
 
 <p className="text-white text-xs ">Don't have an account? <span onClick={()=>{toggle(),setShow(false)}} className="hover:underline cursor-pointer">Signup.</span></p>

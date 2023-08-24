@@ -37,6 +37,7 @@ global.chatSocket=socket
 socket.on("add-user",(userId)=>{
     console.log('new user',userId)
 onlineUsers.set(userId,socket.id)
+socket.broadcast.emit('online-users',{onlineUsers:Array.from(onlineUsers.keys())})
 })
 socket.on("send-msg",(data)=>{ 
     console.log(data)
@@ -77,10 +78,15 @@ if (sendUser){
   socket.to(sendUser).emit('voice-call-rejected')    
 }
   });
+
+  socket.on('signout',(id)=>{
+onlineUsers.delete(id);
+socket.broadcast.emit('online-users',{onlineUsers:Array.from(onlineUsers.keys())})
+  });
  
   socket.on('reject-video-call',(data)=>{
 const sendUser = onlineUsers.get(data.from)
-     
+       
 
 if (sendUser){
   socket.to(sendUser).emit('video-call-rejected')
