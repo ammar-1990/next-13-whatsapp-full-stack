@@ -69,7 +69,7 @@ const MyContext = createContext<SocketContext>({
     videoCall: undefined,
     inVoiceCall: undefined,
     inVideoCall: undefined,
-    chat:false
+    chat:true
   },
   dispatch: () => {},
 });
@@ -129,7 +129,7 @@ const INITIAL_STATE: State = {
   videoCall: undefined,
   inVoiceCall: undefined,
   inVideoCall: undefined,
-  chat:false
+  chat:true
 };
 
 export function MyContextProvider({ children }: { children: ReactNode }) {
