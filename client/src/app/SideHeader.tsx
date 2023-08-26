@@ -4,6 +4,7 @@ import Avatar from './(auth)/signin/Avatar'
 import { User } from '@/actions/getCurrentUser'
 import {MdOutlineMessage} from 'react-icons/md'
 import {SlOptionsVertical} from 'react-icons/sl'
+import {IoMdClose} from 'react-icons/io'
 import {signOut} from'next-auth/react'
 import Menu from './(auth)/signin/Menu'
 import { useSocket } from '@/providers/MyProvider'
@@ -14,7 +15,7 @@ type Props = {
 }
 
 const SideHeader = ({currentUser,setMessages}: Props) => {
-const {state} = useSocket()
+const {state,dispatch} = useSocket()
   const [coordinates, setCoordinates] = useState({x:0,y:0})
   const [showMenue,setShowMenue] = useState(false)
   const spRef = useRef(null)
@@ -41,6 +42,9 @@ const {state} = useSocket()
     <div className="flex items-center h-[70px] justify-between p-3">
     <Avatar sm image={currentUser?.profileImg as string} />
     <div className='flex items-center gap-6'>
+      <span className=' cursor-pointer md:hidden' onClick={()=>dispatch({type:'HIDE_CHAT'})}>
+        <IoMdClose  color='white'  />
+      </span>
         <span onClick={()=>setMessages(true)} className='cursor-pointer'><MdOutlineMessage color='white' size={20} /></span>
 <span ref={spRef} className='cursor-pointer' onClick={handleClick}>
   {showMenue && <Menu avRef={spRef} coordinates={coordinates} data={data} setShowMenue={setShowMenue} />}

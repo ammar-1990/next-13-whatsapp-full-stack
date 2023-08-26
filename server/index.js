@@ -70,7 +70,7 @@ socket.on('outgoing-video-call',(data)=>{
     })
   }
   });
-
+    
   socket.on('reject-voice-call',(data)=>{
 const sendUser = onlineUsers.get(data.from)
 
@@ -82,7 +82,7 @@ if (sendUser){
   socket.on('signout',(id)=>{
 onlineUsers.delete(id);
 socket.broadcast.emit('online-users',{onlineUsers:Array.from(onlineUsers.keys())})
-  });
+  });           
  
   socket.on('reject-video-call',(data)=>{
 const sendUser = onlineUsers.get(data.from)

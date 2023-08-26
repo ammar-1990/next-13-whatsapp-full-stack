@@ -1,7 +1,7 @@
 "use client";
 import { SlMagnifier } from "react-icons/sl";
 import { SlOptionsVertical } from "react-icons/sl";
-import { IoIosCall } from "react-icons/io";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import Avatar from "@/app/(auth)/signin/Avatar";
 import React ,{useState,useRef,useCallback} from "react";
@@ -55,13 +55,17 @@ setShowMenue(true)
       </div>
 
       <div className="flex items-center gap-7">
-        <span className="text-white  cursor-pointer" onClick={handleVoice}>
+        {/* <span className="text-white  cursor-pointer" onClick={handleVoice}>
           <IoIosCall size={20} />
+        </span> */}
+        <span className="text-white  cursor-pointer md:hidden" title="Chat" onClick={()=>dispatch({type:'SHOW_CHAT'})}>
+          <RxHamburgerMenu size={20} />
         </span>
-        <span className="text-white  cursor-pointer" onClick={handleVideo}>
+        <span className="text-white  cursor-pointer" onClick={handleVideo} title="Video call">
           <BsFillCameraVideoFill size={20} />
         </span>
         <span
+        title="Search"
           onClick={() => {
             dispatch({ type: "ON" });
             console.log(state.isSearching);

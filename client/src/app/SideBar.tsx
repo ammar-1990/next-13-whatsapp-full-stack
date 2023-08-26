@@ -98,7 +98,7 @@ const router = useRouter()
 
   const [messages, setMessages] = useState(false)
   return (
-    <div className=" col-span-1 flex flex-col bg-primary">
+    <div className={` md:col-span-1 md:w-full w-[350px] flex flex-col bg-primary md:static fixed top-0 ${state.chat ? 'left-0' : 'left-[-350px]'} z-50 duration-200`}>
       {
         !messages ? ( <div className="  flex flex-col h-screen">
         <SideHeader currentUser={currentUser} setMessages={setMessages} />

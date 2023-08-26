@@ -26,7 +26,7 @@ export default async function Home({searchParams }:{searchParams :{search?:strin
 
 
   return (
-   <div className="grid grid-cols-4 h-screen w-screen overflow-hidden">
+   <div className="md:grid md:grid-cols-4 h-screen w-screen overflow-hidden">
 <SideBar currentUser={currentUser} allUsers={allUsers} myStartUp={myStartUp} />
 
 <Content currentUser={currentUser}  searchParams={searchParams}/>

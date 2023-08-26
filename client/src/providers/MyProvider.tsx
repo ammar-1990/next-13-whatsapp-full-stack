@@ -29,6 +29,7 @@ type State = {
   videoCall:voiceVideo | undefined ;
   inVoiceCall: any;
   inVideoCall: any;
+  chat:boolean
 };
 
 type Action = {
@@ -45,7 +46,9 @@ type Action = {
     | "videoCall"
     | "inVoiceCall"
     | "inVideoCall"
-    | "END_CALL";
+    | "END_CALL"
+    |"SHOW_CHAT"
+    |"HIDE_CHAT";
   payload?: any;
 };
 
@@ -66,6 +69,7 @@ const MyContext = createContext<SocketContext>({
     videoCall: undefined,
     inVoiceCall: undefined,
     inVideoCall: undefined,
+    chat:false
   },
   dispatch: () => {},
 });
@@ -106,6 +110,9 @@ function socketReducer(state: State, action: Action) {
         inVoiceCall: undefined,
         inVideoCall: undefined,
       };
+
+      case "SHOW_CHAT" : return{ ...state,chat:true}
+      case "HIDE_CHAT" : return{ ...state,chat:false}
     default:
       return state;
   }
@@ -122,6 +129,7 @@ const INITIAL_STATE: State = {
   videoCall: undefined,
   inVoiceCall: undefined,
   inVideoCall: undefined,
+  chat:false
 };
 
 export function MyContextProvider({ children }: { children: ReactNode }) {
