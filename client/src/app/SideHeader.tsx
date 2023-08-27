@@ -35,7 +35,7 @@ const {state,dispatch} = useSocket()
 
 
   const handleClick = (e:React.MouseEvent)=>{
-    setCoordinates({x:e.pageX,y:e.pageY})
+    setCoordinates({x:e.pageX-80,y:e.pageY})
     setShowMenue(true)
   }
   return (
