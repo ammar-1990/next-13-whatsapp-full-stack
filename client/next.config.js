@@ -5,7 +5,7 @@ const nextConfig = {
         NEXT_PUBLIC_ZEGO_SERVER_ID:"1a0491ff844c76621fe82b75fa788911"
     },
     images:{
-        domains:['localhost']
+        domains:['whatsapp-socket-5sos.onrender.com']
     }
 }
 
