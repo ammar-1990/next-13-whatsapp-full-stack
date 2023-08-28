@@ -15,7 +15,7 @@ const ImageMessage = ({currentUser,message}: Props) => {
   console.log(message.message)
   return (
     <div className={`${currentUser?.id === message.senderId ? ' bg-green-700/40': 'bg-zinc-700/40'} p-2 rounded-lg`}>
-    <Image src={`https://whatsapp-socket-5sos.onrender.com/uploads/images/${message.message}`} width={300} height={300} alt="img" className="object-cover"/>
+    <Image src={`https://whatsapp-socket-5sos.onrender.com/${message.message}`} width={300} height={300} alt="img" className="object-cover"/>
     <div className="flex items-center gap-2 justify-end mt-2"><span className='text-zinc-200 text-[10px] flex-shrink-0'>{formatDistanceToNow(new Date(message.createdAt))}</span>
     {message.senderId === currentUser?.id &&<span>
           
