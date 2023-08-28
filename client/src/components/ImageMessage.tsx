@@ -12,7 +12,7 @@ type Props = {
 }
 
 const ImageMessage = ({currentUser,message}: Props) => {
-  console.log(message.message)
+  console.log("https://whatsapp-socket-5sos.onrender.com/",message.message)
   return (
     <div className={`${currentUser?.id === message.senderId ? ' bg-green-700/40': 'bg-zinc-700/40'} p-2 rounded-lg`}>
     <Image src={`https://whatsapp-socket-5sos.onrender.com/${message.message}`} width={300} height={300} alt="img" className="object-cover"/>
