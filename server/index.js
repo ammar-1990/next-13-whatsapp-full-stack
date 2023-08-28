@@ -30,7 +30,7 @@ const server = app.listen(process.env.PORT, () =>
 
 //socket.io
 
-const io = new Server(server, { cors: { origin: "http://localhost:3000" } });                  
+const io = new Server(server, { cors: { origin: "https://next-13-whatsapp-full-stack.vercel.app" } });                  
 global.onlineUsers = new Map();
 io.on('connection',(socket)=>{
 global.chatSocket=socket
