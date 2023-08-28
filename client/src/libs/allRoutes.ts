@@ -1,5 +1,5 @@
 
-export const THE_SERVER = "http://localhost:8800/"
+export const THE_SERVER = "https://whatsapp-socket-5sos.onrender.com/"
 export const LOGIN = `${THE_SERVER}api/auth/login`
 export const GET_USER = `${THE_SERVER}api/auth/getuser`
 export const REGISTER = `${THE_SERVER}api/auth/register`
